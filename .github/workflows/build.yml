@@ -13,40 +13,18 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-    - name: Setup Python
-      uses: actions/setup-python@v5
+    - uses: actions/setup-python@v5
       with:
         python-version: 3.11
 
     - name: Install dependencies
       run: |
-        pip install pyinstaller
-        pip install PyQt5
-        pip install minecraft-launcher-lib
-        pip install requests
-        pip install Pillow
-        pip install psutil
+        pip install pyinstaller PyQt5 minecraft-launcher-lib requests Pillow psutil
 
     - name: Build EXE
-      run: |
-        pyinstaller main.py ^
-        --name WONDERFULAND ^
-        --onefile ^
-        --noconsole ^
-        --clean ^
-        --collect-all minecraft_launcher_lib ^
-        --collect-all PyQt5 ^
-        --collect-all requests ^
-        --collect-all PIL ^
-        --collect-all psutil ^
-        --hidden-import pkg_resources.py2_warn ^
-        --hidden-import pkg_resources.markers ^
-        --hidden-import pkg_resources.extern ^
-        --hidden-import pkg_resources.extern.packaging ^
-        --hidden-import pkg_resources.extern.pyparsing
+      run: pyinstaller main.py --name WONDERFULAND --onefile --noconsole --clean --collect-all minecraft_launcher_lib --collect-all PyQt5 --collect-all requests --collect-all PIL --collect-all psutil
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
