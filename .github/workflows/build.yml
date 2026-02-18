@@ -10,25 +10,21 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-    - name: Setup Python
-      uses: actions/setup-python@v5
+    - uses: actions/setup-python@v5
       with:
         python-version: 3.11
 
     - name: Install deps
       run: |
-        pip install pyinstaller
-        pip install -r requirements.txt || echo no requirements
+        pip install pyinstaller PyQt5
 
     - name: Build EXE
       run: |
         pyinstaller --onefile --noconsole --name WONDERFULAND_1.1 main.py
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v4
       with:
         name: WONDERFULAND_BUILD
         path: dist/WONDERFULAND_1.1.exe
